@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 import time
 import csv
+from selenium.webdriver.chrome.options import Options
 
 
 def element_presence(by, xpath, time):
@@ -25,14 +26,12 @@ def send_message(url):
 
 def prepare_msg():
     base_msg = """ 
-    *Python-bot* 
-    
-    Essa é uma mensagem automática!
-    [...] 
+Opa Israel, boa noite!
+Anderson aqui, nos falamos no Facebook.
     """
     base_url = 'https://web.whatsapp.com/send?phone={}&text={}'
 
-    file = open('send-msg-bot/contacts.csv')
+    file = open('contacts.csv')
     type(file)
     csvreader = csv.reader(file)
 
@@ -41,6 +40,9 @@ def prepare_msg():
         url_msg = base_url.format(contact[0], msg)
         send_message(url_msg)
 
+chrome_options = Options()
+chrome_options.add_argument("--user-data-dir-Session")
+chrome_options.add_argument("--profile-directory=Default")
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 prepare_msg()
