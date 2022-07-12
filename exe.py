@@ -25,10 +25,13 @@ def send_message(url):
 
 
 def prepare_msg():
-    base_msg = """ 
-Opa Israel, boa noite!
-Anderson aqui, nos falamos no Facebook.
-    """
+    with open('message.txt') as f:
+        lines = f.readlines()
+
+    base_msg = ''
+    for line in lines:
+        base_msg = base_msg + line
+
     base_url = 'https://web.whatsapp.com/send?phone={}&text={}'
 
     file = open('contacts.csv')
